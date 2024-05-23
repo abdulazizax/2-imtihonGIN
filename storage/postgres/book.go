@@ -195,24 +195,19 @@ func (b *BookRepo) DeleteBookByID(ctx context.Context, id string) error {
 	return nil
 }
 
-func (b *BookRepo) GetBookByTitle(ctx context.Context, id string) (m.Book, error) {
+func (b *BookRepo) GetBookByTitle(ctx context.Context, title string) (m.Book, error) {
 	query := `
         SELECT books.book_id, books.title, authors.name AS author_name, books.publication_date, books.isbn, books.description, books.created_at, books.updated_at
         FROM books
         INNER JOIN authors ON books.author_id = authors.author_id
-        WHERE books.book_id = $1;
+        WHERE books.title = $1;
     `
 
-	intValue, err := strconv.Atoi(id)
-	if err != nil {
-		return m.Book{}, err
-	}
-
-	row := b.DB.QueryRowContext(ctx, query, intValue)
+	row := b.DB.QueryRowContext(ctx, query, title)
 
 	book := m.Book{}
 
-	err = row.Scan(&book.BookID, &book.Title, &book.AuthorName, &book.PublicationDate, &book.ISBN, &book.Description, &book.CreatedAt, &book.UpdatedAt)
+	err := row.Scan(&book.BookID, &book.Title, &book.AuthorName, &book.PublicationDate, &book.ISBN, &book.Description, &book.CreatedAt, &book.UpdatedAt)
 	if err != nil {
 		return book, err
 	}

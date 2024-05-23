@@ -1,4 +1,4 @@
-DB_URL=postgres://postgres:abdulaziz1221@localhost:5432/imtihon2?sslmode=disable
+DB_URL=postgres://student_n9:student_n9@localhost:5432/bookstore_n9?sslmode=disable
 
 run :
 	go run cmd/main.go
