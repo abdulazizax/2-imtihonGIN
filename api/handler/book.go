@@ -125,3 +125,14 @@ func (h *handler) DeleteBookByID(c *gin.Context) {
 	}
 	c.IndentedJSON(http.StatusOK, gin.H{"Deleted book id": id})
 }
+
+func (h *handler) GetBookByTitle(c *gin.Context) {
+	title := c.Param("title")
+
+	book, err := h.storage.Book().GetBookById(c.Request.Context(), title)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, book)
+}

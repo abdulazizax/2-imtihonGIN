@@ -11,4 +11,5 @@ type BooksStorageI interface {
 	GetBooks(ctx context.Context) ([]m.Book, error)
 	UpdateBookById(ctx context.Context, id string, updatedBook m.Book) (m.Book, string, error)
 	DeleteBookByID(ctx context.Context, id string) error
+	GetBookByTitle(ctx context.Context, id string) (m.Book, error)
 }

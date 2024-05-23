@@ -122,3 +122,14 @@ func (h *handler) DeleteAuthorByID(c *gin.Context) {
 	}
 	c.IndentedJSON(http.StatusOK, gin.H{"Deleted author_id": id})
 }
+
+func (h *handler) GetAuthorByName(c *gin.Context) {
+	name := c.Param("name")
+
+	author, err := h.storage.Author().GetAuthorByName(c.Request.Context(), name)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, author)
+}

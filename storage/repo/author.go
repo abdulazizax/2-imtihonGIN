@@ -11,4 +11,5 @@ type AuthorsStorageI interface {
 	GetAuthorById(ctx context.Context, id string) (m.Author, error)
 	UpdateAuthorByID(ctx context.Context, id string, author m.Author) (m.Author, error)
 	DeleteAuthorByID(ctx context.Context, id string) error
+	GetAuthorByName(ctx context.Context, name string) (m.Author, error)
 }

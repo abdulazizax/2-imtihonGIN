@@ -138,3 +138,21 @@ func (a *AuthorRepo) DeleteAuthorByID(ctx context.Context, id string) error {
 
 	return nil
 }
+
+func (a *AuthorRepo) GetAuthorByName(ctx context.Context, name string) (m.Author, error) {
+	query := `
+		SELECT author_id, name, birth_date, biography, created_at, updated_at
+		FROM authors
+		WHERE name = $1;
+	`
+	row := a.DB.QueryRowContext(ctx, query, name)
+
+	author := m.Author{}
+
+	err := row.Scan(&author.AuthorID, &author.Name, &author.BirthDate, &author.Biography, &author.CreatedAt, &author.UpdatedAt)
+	if err != nil {
+		return author, err
+	}
+
+	return author, nil
+}

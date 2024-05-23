@@ -30,6 +30,9 @@ func New(option Option) *gin.Engine {
 	crud.GET("/author/:id", handler.GetAuthorByID)
 	crud.GET("/book/:id", handler.GetBookByID)
 
+	crud.GET("/author/:name", handler.GetAuthorByID)
+	crud.GET("/book/:title", handler.GetBookByID)
+
 	crud.PUT("/author/:id", handler.UpdateAuthoByID)
 	crud.PUT("/book/:id", handler.UpdateBookByID)
 
